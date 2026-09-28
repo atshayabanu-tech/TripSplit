@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TripSplit - Group Travel Expense Tracker</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">T</div>
+
+            <div>
+                <h1>TripSplit</h1>
+                <span>Travel expenses made simple</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <button
+                class="nav-item active"
+                data-section="dashboardSection"
+            >
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </button>
+
+            <button
+                class="nav-item"
+                data-section="participantsSection"
+            >
+                <span class="nav-icon">♙</span>
+                Participants
+            </button>
+
+            <button
+                class="nav-item"
+                data-section="expensesSection"
+            >
+                <span class="nav-icon">₹</span>
+                Expenses
+            </button>
+
+            <button
+                class="nav-item"
+                data-section="settlementSection"
+            >
+                <span class="nav-icon">⇄</span>
+                Settlement
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="status-dot"></span>
+            Backend connected
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+                <p class="eyebrow">GROUP TRAVEL</p>
+                <h2 id="pageTitle">Trip Dashboard</h2>
+            </div>
+
+            <button
+                id="newTripButton"
+                class="primary-button"
+            >
+                + New Trip
+            </button>
+
+        </header>
+
+
+        <!-- =========================
+             DASHBOARD
+        ========================== -->
+
+        <section
+            id="dashboardSection"
+            class="page-section active-section"
+        >
+
+            <!-- Trip selector -->
+
+            <div class="trip-header-card">
+
+                <div>
+
+                    <span class="section-label">
+                        CURRENT TRIP
+                    </span>
+
+                    <h3 id="tripName">
+                        No trip created yet
+                    </h3>
+
+                    <p id="tripMeta">
+                        Create a trip to start tracking expenses.
+                    </p>
+
+                </div>
+
+                <div class="trip-actions">
+
+                    <button
+                        id="addParticipantDashboardButton"
+                        class="secondary-button"
+                    >
+                        + Participant
+                    </button>
+
+                    <button
+                        id="addExpenseDashboardButton"
+                        class="primary-button"
+                    >
+                        + Expense
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Summary cards -->
+
+            <div class="summary-grid">
+
+                <div class="summary-card">
+
+                    <div class="summary-icon blue">
+                        👥
+                    </div>
+
+                    <div>
+                        <span>Total Participants</span>
+                        <strong id="participantCount">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon green">
+                        ₹
+                    </div>
+
+                    <div>
+                        <span>Total Expenses</span>
+                        <strong id="expenseTotal">₹0.00</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon orange">
+                        #
+                    </div>
+
+                    <div>
+                        <span>Expenses</span>
+                        <strong id="expenseCount">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon purple">
+                        ⇄
+                    </div>
+
+                    <div>
+                        <span>Settlements</span>
+                        <strong id="settlementCount">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Dashboard content -->
+
+            <div class="content-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="section-label">
+                                RECENT ACTIVITY
+                            </span>
+
+                            <h3>Expenses</h3>
+                        </div>
+
+                        <button
+                            id="viewExpensesButton"
+                            class="text-button"
+                        >
+                            View all →
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="recentExpenses"
+                        class="empty-state"
+                    >
+                        <div class="empty-icon">₹</div>
+
+                        <h4>No expenses yet</h4>
+
+                        <p>
+                            Add your first expense to see it here.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="section-label">
+                                PEOPLE
+                            </span>
+
+                            <h3>Participants</h3>
+                        </div>
+
+                        <button
+                            id="viewParticipantsButton"
+                            class="text-button"
+                        >
+                            View all →
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="dashboardParticipants"
+                        class="people-list"
+                    >
+                        <div class="empty-state small">
+                            <div class="empty-icon">♙</div>
+
+                            <h4>No participants</h4>
+
+                            <p>
+                                Add people to your trip.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PARTICIPANTS
+        ========================== -->
+
+        <section
+            id="participantsSection"
+            class="page-section"
+        >
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">
+                        TRIP MEMBERS
+                    </span>
+
+                    <h3>Participants</h3>
+
+                    <p>
+                        Add everyone who is travelling with you.
+                    </p>
+                </div>
+
+                <button
+                    id="addParticipantButton"
+                    class="primary-button"
+                >
+                    + Add Participant
+                </button>
+
+            </div>
+
+            <div
+                id="participantsList"
+                class="participants-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- =========================
+             EXPENSES
+        ========================== -->
+
+        <section
+            id="expensesSection"
+            class="page-section"
+        >
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">
+                        MONEY TRACKING
+                    </span>
+
+                    <h3>Expenses</h3>
+
+                    <p>
+                        See who paid and who shared each expense.
+                    </p>
+                </div>
+
+                <button
+                    id="addExpenseButton"
+                    class="primary-button"
+                >
+                    + Add Expense
+                </button>
+
+            </div>
+
+            <div
+                id="expensesList"
+                class="expense-list"
+            ></div>
+
+        </section>
+
+
+        <!-- =========================
+             SETTLEMENT
+        ========================== -->
+
+        <section
+            id="settlementSection"
+            class="page-section"
+        >
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">
+                        FINAL BALANCES
+                    </span>
+
+                    <h3>Settlement</h3>
+
+                    <p>
+                        See who owes whom and settle the trip.
+                    </p>
+                </div>
+
+                <button
+                    id="refreshSettlementButton"
+                    class="secondary-button"
+                >
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+            <div
+                id="balancesList"
+                class="balances-grid"
+            ></div>
+
+
+            <div class="panel settlement-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="section-label">
+                            MINIMAL SETTLEMENT
+                        </span>
+
+                        <h3>Who pays whom?</h3>
+                    </div>
+
+                </div>
+
+                <div
+                    id="settlementsList"
+                    class="settlements-list"
+                ></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         CREATE TRIP MODAL
+    ========================== -->
+
+    <div
+        id="tripModal"
+        class="modal-overlay hidden"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="section-label">
+                        NEW TRIP
+                    </span>
+
+                    <h3>Create a Trip</h3>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close="tripModal"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <form id="tripForm">
+
+                <label for="tripNameInput">
+                    Trip name
+                </label>
+
+                <input
+                    id="tripNameInput"
+                    type="text"
+                    maxlength="160"
+                    placeholder="e.g. Goa Weekend"
+                    required
+                >
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        data-close="tripModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Create Trip
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PARTICIPANT MODAL
+    ========================== -->
+
+    <div
+        id="participantModal"
+        class="modal-overlay hidden"
+    >
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="section-label">
+                        TRIP MEMBER
+                    </span>
+
+                    <h3>Add Participant</h3>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close="participantModal"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <form id="participantForm">
+
+                <label for="participantNameInput">
+                    Full name
+                </label>
+
+                <input
+                    id="participantNameInput"
+                    type="text"
+                    maxlength="120"
+                    placeholder="e.g. Arjun"
+                    required
+                >
+
+
+                <label for="participantEmailInput">
+                    Email
+                </label>
+
+                <input
+                    id="participantEmailInput"
+                    type="email"
+                    maxlength="180"
+                    placeholder="e.g. arjun@example.com"
+                    required
+                >
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        data-close="participantModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Add Participant
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         EXPENSE MODAL
+    ========================== -->
+
+    <div
+        id="expenseModal"
+        class="modal-overlay hidden"
+    >
+
+        <div class="modal expense-modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="section-label">
+                        NEW EXPENSE
+                    </span>
+
+                    <h3>Add Expense</h3>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close="expenseModal"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <form id="expenseForm">
+
+                <label for="expenseDescriptionInput">
+                    Description
+                </label>
+
+                <input
+                    id="expenseDescriptionInput"
+                    type="text"
+                    maxlength="180"
+                    placeholder="e.g. Hotel"
+                    required
+                >
+
+
+                <div class="form-row">
+
+                    <div>
+
+                        <label for="expenseAmountInput">
+                            Amount
+                        </label>
+
+                        <input
+                            id="expenseAmountInput"
+                            type="number"
+                            min="0.01"
+                            step="0.01"
+                            placeholder="0.00"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="expenseCurrencyInput">
+                            Currency
+                        </label>
+
+                        <select id="expenseCurrencyInput">
+
+                            <option value="INR">
+                                INR - ₹
+                            </option>
+
+                            <option value="USD">
+                                USD - $
+                            </option>
+
+                            <option value="EUR">
+                                EUR - €
+                            </option>
+
+                            <option value="GBP">
+                                GBP - £
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <label for="expensePayerInput">
+                    Paid by
+                </label>
+
+                <select
+                    id="expensePayerInput"
+                    required
+                >
+                    <option value="">
+                        Select payer
+                    </option>
+                </select>
+
+
+                <div class="share-heading">
+
+                    <label>
+                        Shared by
+                    </label>
+
+                    <button
+                        type="button"
+                        id="selectAllParticipantsButton"
+                        class="text-button"
+                    >
+                        Select all
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="expenseParticipants"
+                    class="checkbox-list"
+                ></div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        data-close="expenseModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Add Expense
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         TOAST
+    ========================== -->
+
+    <div
+        id="toast"
+        class="toast hidden"
+    >
+        <span id="toastMessage"></span>
+    </div>
+
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
